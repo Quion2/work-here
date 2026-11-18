@@ -116,22 +116,36 @@
       from { transform: translateX(-50%); }
       to { transform: translateX(0); }
     }
-    /* Mobile: large cards with the original 404:316 ratio. */
+    /* Fluid mobile layout: scale every major dimension using actual iframe viewport width / 760. */
     @media (max-width: 700px) {
       :root {
-        --card-width: min(404px, 88vw);
-        --card-height: calc(var(--card-width) * 316 / 404);
-        --card-gap: 16px;
+        --card-width: calc(404px * var(--device-scale, .513));
+        --card-height: calc(316px * var(--device-scale, .513));
+        --card-gap: calc(44px * var(--device-scale, .513));
       }
       html, body { width: 100%; overflow-x: hidden; }
       body { background-attachment: scroll; }
-      .page { min-height: 100dvh; padding-bottom: 12px; display: flex; flex-direction: column; justify-content: center; }
-      .work-header { height: clamp(168px, 47vw, 248px); min-height: 0; padding: 14px 0 10px; }
-      .work-title { width: min(86vw, 450px); }
-      .arrow--left, .arrow--right { width: 26vw; }
-      .arrow--left { left: -10.4vw; }
-      .arrow--right { right: -10.4vw; }
-      .marquee { padding: 22px 0 30px; }
+      .page {
+        min-height: 100dvh;
+        padding-bottom: calc(42px * var(--device-scale, .513));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .work-header {
+        min-height: 0;
+        height: calc(230px * var(--device-scale, .513));
+        padding: 0;
+        flex-shrink: 0;
+      }
+      .work-title { width: calc(445px * var(--device-scale, .513)); }
+      .arrow--left, .arrow--right { width: calc(152px * var(--device-scale, .513)); }
+      .arrow--left { left: calc(-60.8px * var(--device-scale, .513)); }
+      .arrow--right { right: calc(-60.8px * var(--device-scale, .513)); }
+      .marquee {
+        flex-shrink: 0;
+        padding: calc(42px * var(--device-scale, .513)) 0 calc(54px * var(--device-scale, .513));
+      }
       .project { box-shadow: 0 5px 16px rgba(0,0,0,.16); }
     }
     @media (hover: none) {
@@ -191,8 +205,25 @@
           }
         });
       }
-      fitEmbeds();
-      window.addEventListener('resize', fitEmbeds, { passive: true });
+      // Calculate scale from the actual visible CSS viewport (also works inside itch.io's iframe).
+      // Base design width = 760px; at 390px the design scales uniformly to 390 / 760.
+      function resizeLayout() {
+        const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+        if (mobile.matches) {
+          const scale = Math.max(0.25, viewportWidth / 760);
+          document.documentElement.style.setProperty('--device-scale', String(scale));
+          document.documentElement.style.setProperty('--duration', (42 * scale).toFixed(2) + 's');
+        } else {
+          document.documentElement.style.removeProperty('--device-scale');
+          document.documentElement.style.removeProperty('--duration');
+        }
+        fitEmbeds();
+      }
+      resizeLayout();
+      window.addEventListener('resize', resizeLayout, { passive: true });
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', resizeLayout, { passive: true });
+      }
     })();
   </script>
 </body>
