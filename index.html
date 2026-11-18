@@ -116,14 +116,28 @@
       from { transform: translateX(-50%); }
       to { transform: translateX(0); }
     }
-    @media (max-width: 600px) {
-      :root { --card-width: min(404px, 78vw); --card-height: min(316px, 61vw); --card-gap: 25px; }
-      .work-header { min-height: 220px; padding-top: 24px; padding-bottom: 46px; }
-      .work-title { width: min(64.8vw, 450px); }
-      .arrow--left, .arrow--right { width: 25vw; }
-      .arrow--left { left: -10vw; }
-      .arrow--right { right: -10vw; }
-      .marquee { padding: 36px 0 46px; }
+    /* Mobile: large cards with the original 404:316 ratio. */
+    @media (max-width: 700px) {
+      :root {
+        --card-width: min(404px, 88vw);
+        --card-height: calc(var(--card-width) * 316 / 404);
+        --card-gap: 16px;
+      }
+      html, body { width: 100%; overflow-x: hidden; }
+      body { background-attachment: scroll; }
+      .page { min-height: 100dvh; padding-bottom: 12px; display: flex; flex-direction: column; justify-content: center; }
+      .work-header { height: clamp(168px, 47vw, 248px); min-height: 0; padding: 14px 0 10px; }
+      .work-title { width: min(86vw, 450px); }
+      .arrow--left, .arrow--right { width: 26vw; }
+      .arrow--left { left: -10.4vw; }
+      .arrow--right { right: -10.4vw; }
+      .marquee { padding: 22px 0 30px; }
+      .project { box-shadow: 0 5px 16px rgba(0,0,0,.16); }
+    }
+    @media (hover: none) {
+      .marquee:has(.project:hover) .marquee-track { animation-play-state: running; }
+      .marquee:has(.project:hover) .project:not(:hover) { filter: none; }
+      .project:hover { transform: none; box-shadow: 0 5px 16px rgba(0,0,0,.16); }
     }
     @media (prefers-reduced-motion: reduce) {
       .marquee-track { animation-play-state: paused; }
@@ -156,5 +170,30 @@
       </div>
     </section>
   </main>
+  <script>
+    (function () {
+      const mobile = window.matchMedia('(max-width: 700px)');
+      const naturalWidth = 404 / 0.9;
+      const naturalHeight = 316 / 0.9;
+      function fitEmbeds() {
+        document.querySelectorAll('.project').forEach(function (card) {
+          const frame = card.querySelector('iframe');
+          if (!frame) return;
+          if (mobile.matches) {
+            const width = card.offsetWidth;
+            frame.style.width = naturalWidth + 'px';
+            frame.style.height = naturalHeight + 'px';
+            frame.style.transform = 'scale(' + (width / naturalWidth) + ')';
+          } else {
+            frame.style.removeProperty('width');
+            frame.style.removeProperty('height');
+            frame.style.removeProperty('transform');
+          }
+        });
+      }
+      fitEmbeds();
+      window.addEventListener('resize', fitEmbeds, { passive: true });
+    })();
+  </script>
 </body>
 </html>
