@@ -94,9 +94,12 @@
     }
     .project iframe {
       display: block;
-      /* Oversize by 24px; the card crops native iframe scrollbars on its right/bottom edges. */
-      width: calc(100% + 24px);
-      height: calc(100% + 24px);
+      /* Give the embedded page extra room, then scale the complete page to fit the card. */
+      --embed-scale: .9;
+      width: calc(100% / var(--embed-scale));
+      height: calc(100% / var(--embed-scale));
+      transform: scale(var(--embed-scale));
+      transform-origin: top left;
       border: none;
       overflow: hidden;
       background: #fff;
