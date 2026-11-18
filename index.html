@@ -85,6 +85,7 @@
       flex: 0 0 var(--card-width);
       width: var(--card-width);
       height: var(--card-height);
+      overflow: hidden; /* Crop the cross-origin iframe's own scrollbars. */
       background: #fff;
       box-shadow: 0 6px 20px rgba(0,0,0,.10);
       transform-origin: center;
@@ -93,9 +94,11 @@
     }
     .project iframe {
       display: block;
-      width: 100%;
-      height: 100%;
+      /* Oversize by 24px; the card crops native iframe scrollbars on its right/bottom edges. */
+      width: calc(100% + 24px);
+      height: calc(100% + 24px);
       border: none;
+      overflow: hidden;
       background: #fff;
     }
     .marquee:has(.project:hover) .marquee-track { animation-play-state: paused; }
@@ -133,18 +136,18 @@
     <section class="marquee" aria-label="Behance 作品走馬燈">
       <div class="marquee-track">
         <div class="marquee-group">
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258334681?ilo0=1" title="Behance project 258334681" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258282353?ilo0=1" title="Behance project 258282353" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258252397?ilo0=1" title="Behance project 258252397" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258232765?ilo0=1" title="Behance project 258232765" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258230661?ilo0=1" title="Behance project 258230661" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258334681?ilo0=1" title="Behance project 258334681" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258282353?ilo0=1" title="Behance project 258282353" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258252397?ilo0=1" title="Behance project 258252397" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258232765?ilo0=1" title="Behance project 258232765" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258230661?ilo0=1" title="Behance project 258230661" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
         </div>
         <div class="marquee-group" aria-hidden="true">
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258334681?ilo0=1" title="Behance project 258334681" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258282353?ilo0=1" title="Behance project 258282353" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258252397?ilo0=1" title="Behance project 258252397" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258232765?ilo0=1" title="Behance project 258232765" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
-          <div class="project"><iframe src="https://www.behance.net/embed/project/258230661?ilo0=1" title="Behance project 258230661" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258334681?ilo0=1" title="Behance project 258334681" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258282353?ilo0=1" title="Behance project 258282353" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258252397?ilo0=1" title="Behance project 258252397" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258232765?ilo0=1" title="Behance project 258232765" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
+          <div class="project"><iframe scrolling="no" src="https://www.behance.net/embed/project/258230661?ilo0=1" title="Behance project 258230661" width="404" height="316" loading="lazy" allowfullscreen allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>
         </div>
       </div>
     </section>
