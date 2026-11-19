@@ -393,7 +393,31 @@
       align-items: stretch;
       transform-origin: top left;
     }
-    .site-layer--two { background: var(--paper); min-height: 100svh; }
+    .site-layer--two {
+      background: #030303;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: clip;
+    }
+    .network-frame {
+      position: relative;
+      width: 100%;
+      min-width: 0;
+      overflow: clip;
+    }
+    .network-iframe {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1440px;
+      height: 820px;
+      border: 0;
+      display: block;
+      background: #030303;
+      transform-origin: left top;
+    }
     .site-layer--three {
       background: linear-gradient(107deg, #ff6907 0%, #db5518 25%, #a63829 55%, #56211e 79%, #160607 100%);
       overflow: clip;
@@ -460,7 +484,11 @@
   </div>
       </div>
     </section>
-    <section class="site-layer site-layer--two" id="section-two" aria-label="Reserved second layer"></section>
+    <section class="site-layer site-layer--two" id="section-two" aria-label="Creative software network — layer two">
+      <div class="network-frame" id="network-frame">
+        <iframe id="network-iframe" class="network-iframe" title="Quion creative network" src="./creative-network.html" width="1440" height="820" loading="eager" scrolling="no"></iframe>
+      </div>
+    </section>
     <section class="site-layer site-layer--three" id="work" aria-label="Work — layer three">
 <div class="page">
     <header class="work-header" aria-label="My W0rk">
@@ -549,6 +577,19 @@
       fitFirstLayer();
       if ('ResizeObserver' in window) new ResizeObserver(fitFirstLayer).observe(layer);
       window.addEventListener('resize', fitFirstLayer, { passive: true });
+      const networkLayer = document.getElementById('section-two');
+      const networkFrame = document.getElementById('network-frame');
+      const networkIframe = document.getElementById('network-iframe');
+      function fitNetworkLayer() {
+        if (!networkLayer || !networkFrame || !networkIframe) return;
+        const availableWidth = networkLayer.getBoundingClientRect().width || document.documentElement.clientWidth;
+        const scale = availableWidth / 1440;
+        networkFrame.style.height = (820 * scale) + 'px';
+        networkIframe.style.transform = 'scale(' + scale + ')';
+      }
+      fitNetworkLayer();
+      if ('ResizeObserver' in window) new ResizeObserver(fitNetworkLayer).observe(networkLayer);
+      window.addEventListener('resize', fitNetworkLayer, { passive: true });
     })();
   </script>
 </body>
